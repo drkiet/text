@@ -1,0 +1,4 @@
+# Project text reader
+
+This project contains code that read documents from file
+system using Apache Tika - a content analysis toolkit.

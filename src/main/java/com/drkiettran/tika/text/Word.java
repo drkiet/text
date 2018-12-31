@@ -3,6 +3,9 @@ package com.drkiettran.tika.text;
 import java.util.Arrays;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Word {
 	// @formatter:off
 	public static final String[] KNOWN_WORD_LIST = {
@@ -21,10 +24,12 @@ public class Word {
 	private boolean endsWithComma;
 	private boolean endsWithSemicolon;
 	private boolean endsWithRightParenthesis;
+	private int indexOfText;
 
 	public Word(String token) {
 		originalWord = token;
-		word = isWord(token);
+		token = token.replaceAll("\n", " ").trim();
+		word = isItaWord(token);
 
 		if (!isWord()) {
 			return;
@@ -39,6 +44,10 @@ public class Word {
 
 		getPunctuation(token);
 		transformedWord = transform(token);
+	}
+
+	private Word() {
+		// TODO Auto-generated constructor stub
 	}
 
 	private String transform(String token) {
@@ -61,7 +70,10 @@ public class Word {
 		this.endsWithRightParenthesis = lastCharIs(token, ')');
 	}
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(Word.class);
+
 	private boolean lastCharIs(String token, char expectedChar) {
+		LOGGER.info("token: {}; lastChar: {}", token, token.charAt(token.length() - 1));
 		return token.charAt(token.length() - 1) == expectedChar;
 	}
 
@@ -84,7 +96,7 @@ public class Word {
 	/*
 	 * a word must have at least one alphabet or one digit.
 	 */
-	private boolean isWord(String token) {
+	private boolean isItaWord(String token) {
 		for (int idx = 0; idx < token.length(); idx++) {
 			if (isAlphabetOrDigit(token.charAt(idx))) {
 				return true;
@@ -120,4 +132,28 @@ public class Word {
 	public boolean endsWithRightParenthesis() {
 		return endsWithRightParenthesis;
 	}
+
+	public void setIndexOfText(int indexOfText) {
+		this.indexOfText = indexOfText;
+	}
+
+	@Override
+	public Word clone() {
+		Word copy = new Word();
+		copy.endsWithComma = this.endsWithComma;
+		copy.endsWithPeriod = this.endsWithPeriod;
+		copy.endsWithRightParenthesis = this.endsWithRightParenthesis;
+		copy.endsWithSemicolon = this.endsWithSemicolon;
+		copy.indexOfText = this.indexOfText;
+		copy.originalWord = this.originalWord;
+		copy.transformedWord = this.transformedWord;
+		copy.wellKnownWord = this.wellKnownWord;
+		copy.word = this.word;
+		return copy;
+	}
+
+	public int getIndexOfText() {
+		return indexOfText;
+	}
+
 }

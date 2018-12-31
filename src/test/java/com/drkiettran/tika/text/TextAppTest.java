@@ -7,6 +7,8 @@ import static org.hamcrest.text.IsEmptyString.isEmptyOrNullString;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.tika.exception.TikaException;
 import org.junit.Before;
@@ -48,9 +50,9 @@ public class TextAppTest {
 		assertThat(text, not(isEmptyOrNullString()));
 		assertThat(text, containsString(EXPECTED_STRING));
 	}
-	
+
 	@Test
 	public void loadTextFromFile() {
-		
+
 	}
 }

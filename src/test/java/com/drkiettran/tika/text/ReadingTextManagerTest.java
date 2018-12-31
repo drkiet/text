@@ -65,7 +65,7 @@ public class ReadingTextManagerTest {
 
 	@Test
 	public void shouldGetWordsToReadCorrectly() {
-		ReadingTextManager2 rtm = new ReadingTextManager2(TEXT);
+		ReadingTextManager rtm = new ReadingTextManager(TEXT);
 		assertThat(rtm.getNumberOfWords(), equalTo(EXPECTED_WORD_COUNT));
 		logger.info("words: {}", rtm.getWords());
 	}

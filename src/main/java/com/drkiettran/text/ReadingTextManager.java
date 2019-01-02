@@ -1,4 +1,4 @@
-package com.drkiettran.tika.text;
+package com.drkiettran.text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,9 @@ import java.util.StringTokenizer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.drkiettran.text.model.SearchResult;
+import com.drkiettran.text.model.Word;
 
 public class ReadingTextManager {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ReadingTextManager.class);
@@ -115,7 +118,7 @@ public class ReadingTextManager {
 			if (notFirstNotLastChar(idx)) {
 				char nextChar = text.charAt(idx + 1);
 				if (singleLF(text, idx) && !Character.isUpperCase(nextChar) && !Character.isDigit(nextChar)
-						&& nextChar != ' ') {
+						&& nextChar != ' ' && nextChar != '•') {
 					sb.append(' ');
 					continue;
 				}

@@ -15,6 +15,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
+import com.drkiettran.text.TextApp;
+
 public class TextAppTest {
 
 	private static final String TIKA_EXAMPLES_DOCX = "/Tika-examples.docx";

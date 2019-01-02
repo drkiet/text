@@ -1,4 +1,6 @@
-package com.drkiettran.tika.text;
+package com.drkiettran.text.model;
+
+import com.drkiettran.text.ReadingTextManager;
 
 public class Page {
 	private ReadingTextManager rtm;

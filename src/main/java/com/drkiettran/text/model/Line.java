@@ -1,4 +1,4 @@
-package com.drkiettran.tika.text;
+package com.drkiettran.text.model;
 
 import java.util.List;
 

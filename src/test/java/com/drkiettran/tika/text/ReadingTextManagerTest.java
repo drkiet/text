@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.drkiettran.text.ReadingTextManager;
+
 public class ReadingTextManagerTest {
 	public static final Logger logger = LoggerFactory.getLogger(ReadingTextManagerTest.class);
 	public static final String TEXT = "Relevant guidance issued but not yet effective as of March 1, 2018 but "

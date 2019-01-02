@@ -1,5 +1,7 @@
-package com.drkiettran.tika.text;
+package com.drkiettran.text.loader;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -8,47 +10,36 @@ import java.util.List;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
 import org.apache.pdfbox.text.PDFTextStripper;
-import org.apache.tika.Tika;
-import org.apache.tika.exception.TikaException;
-import org.apache.tika.metadata.Metadata;
-import org.apache.tika.parser.AutoDetectParser;
-import org.apache.tika.sax.BodyContentHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.SAXException;
 
-public class TextApp {
-	private static final Logger LOGGER = LoggerFactory.getLogger(TextApp.class);
+import com.drkiettran.text.model.Document;
+import com.drkiettran.text.model.Page;
 
-	public String parseToString(InputStream is) throws IOException, TikaException, SAXException {
-		BodyContentHandler handler = new BodyContentHandler(-1);
-		AutoDetectParser parser = new AutoDetectParser();
-		Metadata metadata = new Metadata();
-		parser.parse(is, handler, metadata);
-		return handler.toString();
-	}
+public class DocumentLoaderPdf implements DocumentLoader {
+	private static final Logger LOGGER = LoggerFactory.getLogger(DocumentLoaderPdf.class);
 
-	public String parseToString2(InputStream is) {
-		Tika tika = new Tika();
-		try {
-			return tika.parseToString(is);
-		} catch (IOException | TikaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public Document getPages(String fileName) {
+		try (InputStream is = new FileInputStream(fileName)) {
+			return getPages(is);
+		} catch (FileNotFoundException e) {
+			LOGGER.error("File not found: {}", e);
+		} catch (IOException e) {
+			LOGGER.error("IO exception: {}", e);
 		}
-		return "";
+		return null;
 	}
 
-	public Document getPagesFromPdf(InputStream is) {
-
+	@Override
+	public Document getPages(InputStream is) {
 		try (PDDocument document = PDDocument.load(is)) {
 			if (!document.isEncrypted()) {
 				return new Document(getPages(document));
 			}
 		} catch (InvalidPasswordException e) {
-			LOGGER.error("Error: {}", e);
+			LOGGER.error("Invalid password: {}", e);
 		} catch (IOException e) {
-			LOGGER.error("Error: {}", e);
+			LOGGER.error("IO exception: {}", e);
 		}
 
 		return null;

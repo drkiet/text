@@ -18,6 +18,8 @@
 		<hamcrest.version>1.3</hamcrest.version>
 		<guice.version>4.1.0</guice.version>
 		<pdfbox.version>2.0.13</pdfbox.version>
+		<epublib.version>3.1</epublib.version>
+		<jsoup.version>1.11.3</jsoup.version>
 	</properties>
 
 	<dependencies>
@@ -58,7 +60,18 @@
 			<artifactId>pdfbox</artifactId>
 			<version>${pdfbox.version}</version>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/com.positiondev.epublib/epublib-core -->
+		<dependency>
+			<groupId>com.positiondev.epublib</groupId>
+			<artifactId>epublib-core</artifactId>
+			<version>${epublib.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>${jsoup.version}</version>
+		</dependency>
 
 	</dependencies>
 	<build>

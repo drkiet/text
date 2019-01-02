@@ -19,17 +19,18 @@ public class ReadingTextManager {
 	private int numPauses = 0;
 
 	public ReadingTextManager(String text) {
+		LOGGER.debug("*** text: \n{}", text);
 		this.text = text;
 		initializeWordList();
 	}
 
 	/**
-	 * create a list of Words and maintain internally.
-	 * wordIdx is the location of a word in the list.
+	 * create a list of Words and maintain internally. wordIdx is the location of a
+	 * word in the list.
 	 * 
 	 */
 	public void initializeWordList() {
-		LOGGER.info("initializing word list");
+		LOGGER.debug("initializing word list");
 		makeParagraph();
 		insertExtraLF();
 		String workingText = text.replaceAll("\n", " ");
@@ -82,7 +83,7 @@ public class ReadingTextManager {
 			words.add(word);
 		}
 
-//		LOGGER.info("word: /{}/{}/", word.getOriginalWord(), word.getTransformedWord());
+		LOGGER.debug("word: /{}/{}/", word.getOriginalWord(), word.getTransformedWord());
 		return word;
 	}
 
@@ -127,6 +128,8 @@ public class ReadingTextManager {
 			}
 			if (curChar == '—') {
 				curChar = '-';
+			} else if (curChar == '\t') {
+				curChar = ' ';
 			}
 			sb.append(curChar);
 			lastChar = curChar;

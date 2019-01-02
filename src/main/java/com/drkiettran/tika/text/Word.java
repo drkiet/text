@@ -73,7 +73,7 @@ public class Word {
 	private static final Logger LOGGER = LoggerFactory.getLogger(Word.class);
 
 	private boolean lastCharIs(String token, char expectedChar) {
-		LOGGER.info("token: {}; lastChar: {}", token, token.charAt(token.length() - 1));
+//		LOGGER.info("token: {}; lastChar: {}", token, token.charAt(token.length() - 1));
 		return token.charAt(token.length() - 1) == expectedChar;
 	}
 

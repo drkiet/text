@@ -209,7 +209,8 @@ public class ReadingTextManager {
 			numPauses = getNumberOfPauses();
 			caret = currentWord.getIndexOfText();
 			currentWord.getOriginalWord().length();
-			return currentWord.getTransformedWord();
+//			return currentWord.getTransformedWord();
+			return currentWord.getOriginalWord();
 		}
 
 		return null;

@@ -259,8 +259,9 @@ public class ReadingTextManager {
 	public Word getWordAt(int caretPosition) {
 		for (int idx = 0; idx < words.size(); idx++) {
 			if (caretPosition <= words.get(idx).getIndexOfText()) {
-				LOGGER.debug("found *** {}", words.get(idx - 1).getTransformedWord());
-				return words.get(idx - 1).clone();
+				int prevIdx = idx > 0 ? idx - 1 : 0;
+				LOGGER.debug("found *** {}", words.get(prevIdx).getTransformedWord());
+				return words.get(prevIdx).clone();
 			}
 		}
 		return null;

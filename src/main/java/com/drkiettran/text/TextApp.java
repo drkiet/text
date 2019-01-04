@@ -14,6 +14,7 @@ import org.xml.sax.SAXException;
 
 import com.drkiettran.text.loader.DocumentLoaderEpub;
 import com.drkiettran.text.loader.DocumentLoaderPdf;
+import com.drkiettran.text.loader.DocumentLoaderText;
 import com.drkiettran.text.model.Document;
 
 public class TextApp {
@@ -32,8 +33,7 @@ public class TextApp {
 		try {
 			return tika.parseToString(is);
 		} catch (IOException | TikaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("IO Error: {}", e);
 		}
 		return "";
 	}
@@ -43,6 +43,8 @@ public class TextApp {
 			return new DocumentLoaderPdf().getPages(fileName);
 		} else if (fileName.endsWith(".epub")) {
 			return new DocumentLoaderEpub().getPages(fileName);
+		} else if (fileName.endsWith(".txt")) {
+			return new DocumentLoaderText().getPages(fileName);
 		} else {
 			LOGGER.error("Unable to load {} - file type NOT SUPPORTED.", fileName);
 		}

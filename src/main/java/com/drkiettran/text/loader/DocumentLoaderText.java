@@ -48,13 +48,16 @@ public class DocumentLoaderText implements DocumentLoader {
 
 	private List<Page> getPages(BufferedReader br) throws IOException {
 		List<Page> pages = new ArrayList<Page>();
+		int pageNo = 1;
 
 		for (;;) {
-			String page = getPage(br);
-			if (page.isEmpty()) {
+			String pageText = getPage(br);
+			if (pageText.isEmpty()) {
 				break;
 			}
-			pages.add(new Page(page));
+			Page page = new Page(pageText);
+			page.setPageNumber(pageNo++);
+			pages.add(page);
 		}
 
 		return pages;

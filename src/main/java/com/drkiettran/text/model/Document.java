@@ -5,31 +5,35 @@ import java.util.List;
 
 public class Document {
 	private List<Page> pages;
-	private int idx = 0;
+	private Page currentPage;
 
 	public Document(List<Page> pages) {
 		this.pages = pages;
+		currentPage = pages.get(0);
+	}
+
+	public Page getCurrentPage() {
+		return (Page) currentPage.clone();
 	}
 
 	public Page nextPage() {
-		Page page = pages.get(idx);
-		if (idx < pages.size() - 1) {
-			idx++;
+		if (currentPage.getPageNumber() < pages.size()) {
+			currentPage = pages.get(currentPage.getPageNumber());
 		}
-		return page;
+
+		return getCurrentPage();
 	}
 
 	public Page previousPage() {
-		Page page = pages.get(idx);
-		if (idx > 0) {
-			idx--;
+		if (currentPage.getPageNumber() > 1) {
+			currentPage = pages.get(currentPage.getPageNumber() - 2);
 		}
-		return page;
+		return getCurrentPage();
 	}
 
-	public void setIdx(int idx) {
-		if (idx - 1 >= 0 && idx - 1 <= pages.size() - 1) {
-			this.idx = idx;
+	public void setPageNo(int pageNo) {
+		if (pageNo >= 1 && pageNo <= pages.size()) {
+			currentPage = pages.get(pageNo - 1);
 		}
 	}
 
@@ -38,14 +42,16 @@ public class Document {
 	}
 
 	public int getCurrentPageNumber() {
-		return idx;
+		return currentPage.getPageNumber();
 	}
 
 	public List<SearchResult> search(String searchText) {
 		List<SearchResult> searchResults = new ArrayList<SearchResult>();
+
 		for (int idx = 0; idx < pages.size(); idx++) {
 			searchResults.add(pages.get(idx).getRtm().search(searchText));
 		}
+
 		return searchResults;
 	}
 }

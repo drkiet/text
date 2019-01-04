@@ -56,7 +56,9 @@ public class DocumentLoaderEpub implements DocumentLoader {
 
 		for (int idx = 0; idx < spineReferences.size(); idx++) {
 			LOGGER.info("EPUB loads page # {}", idx + 1);
-			pages.add(new Page(getPage(spineReferences.get(idx), idx + 1)));
+			Page page = new Page(getPage(spineReferences.get(idx), idx + 1));
+			page.setPageNumber(idx + 1);
+			pages.add(page);
 		}
 		return pages;
 	}
@@ -65,7 +67,6 @@ public class DocumentLoaderEpub implements DocumentLoader {
 	private static final List<String> TAGS = Arrays.asList(SUPPORTING_TAGS);
 
 	private String getPage(SpineReference spineReference, int pageNo) throws IOException {
-//		System.out.println("*** \n" + new String(spineReference.getResource().getData()) + "\n***");
 		org.jsoup.nodes.Document doc = Jsoup.parse(new String(spineReference.getResource().getData()), "ISO-8859-1");
 		Elements elements = doc.getAllElements();
 
@@ -92,7 +93,7 @@ public class DocumentLoaderEpub implements DocumentLoader {
 				LOGGER.debug("**** huh? {}", element.tagName());
 			}
 		}
-		System.out.println("text: " + sb.toString());
+//		System.out.println("text: " + sb.toString());
 		return sb.toString();
 	}
 

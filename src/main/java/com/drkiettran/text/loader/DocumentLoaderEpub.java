@@ -55,6 +55,7 @@ public class DocumentLoaderEpub implements DocumentLoader {
 		List<SpineReference> spineReferences = spine.getSpineReferences();
 
 		for (int idx = 0; idx < spineReferences.size(); idx++) {
+			LOGGER.info("EPUB loads page # {}", idx + 1);
 			pages.add(new Page(getPage(spineReferences.get(idx), idx + 1)));
 		}
 		return pages;

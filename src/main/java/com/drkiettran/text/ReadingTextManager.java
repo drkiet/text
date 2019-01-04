@@ -70,7 +70,11 @@ public class ReadingTextManager {
 			}
 		}
 
-		LOGGER.info("found: {} words", words.size());
+		if (words.size() > 0) {
+			LOGGER.info("{} words analyzed for reading", words.size());
+		} else {
+			LOGGER.info("*** document is empty ***");
+		}
 	}
 
 	/**
@@ -238,7 +242,7 @@ public class ReadingTextManager {
 				}
 			}
 		}
-		LOGGER.info("{} words '{}' found", sr.getNumberMatchedWords(), searchText);
+		LOGGER.debug("{} words '{}' found", sr.getNumberMatchedWords(), searchText);
 		return sr;
 	}
 
@@ -255,7 +259,7 @@ public class ReadingTextManager {
 	public Word getWordAt(int caretPosition) {
 		for (int idx = 0; idx < words.size(); idx++) {
 			if (caretPosition <= words.get(idx).getIndexOfText()) {
-				LOGGER.info("found *** {}", words.get(idx - 1).getTransformedWord());
+				LOGGER.debug("found *** {}", words.get(idx - 1).getTransformedWord());
 				return words.get(idx - 1).clone();
 			}
 		}

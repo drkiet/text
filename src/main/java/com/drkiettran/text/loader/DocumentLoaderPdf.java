@@ -49,6 +49,7 @@ public class DocumentLoaderPdf implements DocumentLoader {
 		List<Page> pages = new ArrayList<Page>();
 
 		for (int idx = 0; idx < document.getNumberOfPages(); idx++) {
+			LOGGER.info("PDF loads page # {}", idx + 1);
 			pages.add(new Page(getPage(document, idx + 1)));
 		}
 		return pages;

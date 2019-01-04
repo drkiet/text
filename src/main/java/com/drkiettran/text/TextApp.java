@@ -43,6 +43,8 @@ public class TextApp {
 			return new DocumentLoaderPdf().getPages(fileName);
 		} else if (fileName.endsWith(".epub")) {
 			return new DocumentLoaderEpub().getPages(fileName);
+		} else {
+			LOGGER.error("Unable to load {} - file type NOT SUPPORTED.", fileName);
 		}
 		return null;
 	}

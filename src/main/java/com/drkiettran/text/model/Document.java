@@ -1,5 +1,6 @@
 package com.drkiettran.text.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Document {
@@ -38,5 +39,13 @@ public class Document {
 
 	public int getCurrentPageNumber() {
 		return idx;
+	}
+
+	public List<SearchResult> search(String searchText) {
+		List<SearchResult> searchResults = new ArrayList<SearchResult>();
+		for (int idx = 0; idx < pages.size(); idx++) {
+			searchResults.add(pages.get(idx).getRtm().search(searchText));
+		}
+		return searchResults;
 	}
 }

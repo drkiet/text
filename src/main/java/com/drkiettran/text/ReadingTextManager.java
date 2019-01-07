@@ -90,7 +90,7 @@ public class ReadingTextManager {
 			words.add(word);
 		}
 
-		LOGGER.debug("word: /{}/{}/", word.getOriginalWord(), word.getTransformedWord());
+//		LOGGER.debug("word: /{}/{}/", word.getOriginalWord(), word.getTransformedWord());
 		return word;
 	}
 

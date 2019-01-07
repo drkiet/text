@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
+import com.drkiettran.scriptureinaction.model.BibleBook;
 import com.drkiettran.text.loader.DocumentLoaderEpub;
 import com.drkiettran.text.loader.DocumentLoaderPdf;
 import com.drkiettran.text.loader.DocumentLoaderText;
@@ -19,6 +20,15 @@ import com.drkiettran.text.model.Document;
 
 public class TextApp {
 	private static final Logger LOGGER = LoggerFactory.getLogger(TextApp.class);
+	private String translation = null;
+
+	public TextApp(String translation) {
+		this.translation = translation;
+	}
+
+	public TextApp() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public String parseToString(InputStream is) throws IOException, TikaException, SAXException {
 		BodyContentHandler handler = new BodyContentHandler(-1);
@@ -45,6 +55,9 @@ public class TextApp {
 			return new DocumentLoaderEpub().getPages(fileName);
 		} else if (fileName.endsWith(".txt")) {
 			return new DocumentLoaderText().getPages(fileName);
+		} else if (translation != null) {
+			DocumentLoaderBible doc = new DocumentLoaderBible(translation);
+			return doc.getPages(fileName);
 		} else {
 			LOGGER.error("Unable to load {} - file type NOT SUPPORTED.", fileName);
 		}

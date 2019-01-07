@@ -68,6 +68,28 @@ public class Word {
 		this.endsWithSemicolon = lastCharIs(token, ';');
 		this.endsWithPeriod = lastCharIs(token, '.');
 		this.endsWithRightParenthesis = lastCharIs(token, ')');
+
+		if (token.length() < 2) {
+			return;
+		}
+
+		// attempt char next to last.
+		if (!endsWithComma) {
+			endsWithComma = nextToLastCharIs(token, ',');
+		}
+		if (!endsWithSemicolon) {
+			endsWithSemicolon = nextToLastCharIs(token, ';');
+		}
+		if (!endsWithPeriod) {
+			endsWithPeriod = nextToLastCharIs(token, '.');
+		}
+		if (!endsWithRightParenthesis) {
+			endsWithRightParenthesis = nextToLastCharIs(token, ')');
+		}
+	}
+
+	private boolean nextToLastCharIs(String token, char expectedChar) {
+		return token.charAt(token.length() - 2) == expectedChar;
 	}
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Word.class);

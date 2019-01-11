@@ -194,7 +194,11 @@ public class Document {
 				startingVerse = Integer.valueOf(verses[0]);
 				endingVerse = Integer.valueOf(verses[1]);
 			} else {
-				startingVerse = endingVerse = Integer.valueOf(linkRef.split(":")[1]);
+				if (linkRef.indexOf(":") > 0) {
+					startingVerse = endingVerse = Integer.valueOf(linkRef.split(":")[1]);
+				} else {
+					startingVerse = endingVerse = Integer.valueOf(linkRef.split(" ")[1]);
+				}
 			}
 			LOGGER.info("verseNo {} starting {} ending {}", verseNo, startingVerse, endingVerse);
 			if (verseNo >= startingVerse && verseNo <= endingVerse) {

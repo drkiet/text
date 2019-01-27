@@ -1,5 +1,8 @@
 package com.drkiettran.text.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.drkiettran.text.ReadingTextManager;
 
 public class Page {
@@ -44,5 +47,9 @@ public class Page {
 
 	public ReadingTextManager getRtm() {
 		return rtm;
+	}
+
+	public List<String> getWordsInPage() {
+		return rtm.wordsInPage();
 	}
 }

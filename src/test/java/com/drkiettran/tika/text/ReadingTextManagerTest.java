@@ -63,7 +63,7 @@ public class ReadingTextManagerTest {
 	 * 
 	 * 
 	 */
-	public static final int EXPECTED_WORD_COUNT = 269;
+	public static final int EXPECTED_WORD_COUNT = 272;
 
 	@Test
 	public void shouldGetWordsToReadCorrectly() {

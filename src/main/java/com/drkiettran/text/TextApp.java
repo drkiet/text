@@ -12,10 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
-import com.drkiettran.scriptureinaction.model.BibleBook;
 import com.drkiettran.text.loader.DocumentLoaderEpub;
 import com.drkiettran.text.loader.DocumentLoaderPdf;
 import com.drkiettran.text.loader.DocumentLoaderText;
+import com.drkiettran.text.loader.DocumentLoaderWebsite;
 import com.drkiettran.text.model.Document;
 
 public class TextApp {
@@ -49,6 +49,7 @@ public class TextApp {
 	}
 
 	public Document getPages(String fileName) {
+		LOGGER.info("getting pages for {}", fileName);
 		if (fileName.endsWith(".pdf")) {
 			return new DocumentLoaderPdf().getPages(fileName);
 		} else if (fileName.endsWith(".epub")) {
@@ -58,6 +59,8 @@ public class TextApp {
 		} else if (translation != null) {
 			DocumentLoaderBible doc = new DocumentLoaderBible(translation);
 			return doc.getPages(fileName);
+		} else if (fileName.startsWith("http")) {
+			return new DocumentLoaderWebsite().getPages(fileName);
 		} else {
 			LOGGER.error("Unable to load {} - file type NOT SUPPORTED.", fileName);
 		}

@@ -19,6 +19,7 @@ public class Document {
 	private Page currentPage;
 	private BibleBook bibleBook;
 	private BibleRepositoryViaFile repo = new BibleRepositoryViaFile();
+	private String bookFileName;
 
 	public void setBibleBook(BibleBook bibleBook) {
 		this.bibleBook = bibleBook;
@@ -296,5 +297,25 @@ public class Document {
 
 		sb.append("</font></html>");
 		return sb.toString();
+	}
+
+	public String getBookFileName() {
+		return this.bookFileName;
+	}
+
+	public void setBookFileName(String bookName) {
+		this.bookFileName = bookName;
+	}
+
+	public List<List<String>> getWordsByPages() {
+		List<List<String>> wordsByPages = new ArrayList<List<String>>();
+
+		for (int idx = 0; idx < pages.size(); idx++) {
+			Page page = pages.get(idx);
+			List<String> words = page.getWordsInPage();
+			wordsByPages.add(words);
+		}
+
+		return wordsByPages;
 	}
 }

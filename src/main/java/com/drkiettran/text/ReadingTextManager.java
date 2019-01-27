@@ -256,6 +256,12 @@ public class ReadingTextManager {
 		return 0;
 	}
 
+	/**
+	 * Return the word at the caret position on the page.
+	 * 
+	 * @param caretPosition
+	 * @return
+	 */
 	public Word getWordAt(int caretPosition) {
 		for (int idx = 0; idx < words.size(); idx++) {
 			if (caretPosition <= words.get(idx).getIndexOfText()) {
@@ -265,5 +271,20 @@ public class ReadingTextManager {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Returns a list of words of the current page.
+	 * 
+	 * @return
+	 */
+	public List<String> wordsInPage() {
+		List<String> wordsInPage = new ArrayList<String>();
+
+		for (int idx = 0; idx < words.size(); idx++) {
+			wordsInPage.add(words.get(idx).getTransformedWord());
+		}
+
+		return wordsInPage;
 	}
 }

@@ -1,6 +1,5 @@
 package com.drkiettran.text.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.drkiettran.text.ReadingTextManager;

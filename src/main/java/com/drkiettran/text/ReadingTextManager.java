@@ -70,11 +70,11 @@ public class ReadingTextManager {
 			}
 		}
 
-		if (words.size() > 0) {
-			LOGGER.info("{} words analyzed for reading", words.size());
-		} else {
-			LOGGER.info("*** document is empty ***");
-		}
+//		if (words.size() > 0) {
+//			LOGGER.info("{} words analyzed for reading", words.size());
+//		} else {
+//			LOGGER.info("*** document is empty ***");
+//		}
 	}
 
 	/**
@@ -266,7 +266,7 @@ public class ReadingTextManager {
 		for (int idx = 0; idx < words.size(); idx++) {
 			if (caretPosition <= words.get(idx).getIndexOfText()) {
 				int prevIdx = idx > 0 ? idx - 1 : 0;
-				LOGGER.debug("found *** {}", words.get(prevIdx).getTransformedWord());
+//				LOGGER.debug("found *** {}", words.get(prevIdx).getTransformedWord());
 				return words.get(prevIdx).clone();
 			}
 		}

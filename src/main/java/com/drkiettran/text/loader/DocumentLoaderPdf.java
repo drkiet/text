@@ -21,7 +21,9 @@ public class DocumentLoaderPdf implements DocumentLoader {
 
 	public Document getPages(String fileName) {
 		try (InputStream is = new FileInputStream(fileName)) {
-			return getPages(is);
+			Document doc = getPages(is);
+			is.close();
+			return doc;
 		} catch (FileNotFoundException e) {
 			LOGGER.error("File not found: {}", e);
 		} catch (IOException e) {
@@ -34,8 +36,11 @@ public class DocumentLoaderPdf implements DocumentLoader {
 	public Document getPages(InputStream is) {
 		try (PDDocument document = PDDocument.load(is)) {
 			if (!document.isEncrypted()) {
-				return new Document(getPages(document));
+				List<Page> pages = getPages(document);
+				document.close();
+				return new Document(pages);
 			}
+			document.close();
 		} catch (InvalidPasswordException e) {
 			LOGGER.error("Invalid password: {}", e);
 		} catch (IOException e) {

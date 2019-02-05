@@ -10,6 +10,11 @@ import org.slf4j.LoggerFactory;
 import com.drkiettran.text.model.SearchResult;
 import com.drkiettran.text.model.Word;
 
+/**
+ * 
+ * @author ktran
+ *
+ */
 public class ReadingTextManager {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ReadingTextManager.class);
 
@@ -33,7 +38,6 @@ public class ReadingTextManager {
 	 * 
 	 */
 	public void initializeWordList() {
-		LOGGER.debug("initializing word list");
 		makeParagraph();
 		insertExtraLF();
 		String workingText = text.replaceAll("\n", " ");
@@ -69,12 +73,6 @@ public class ReadingTextManager {
 				word.setIndexOfText(startIdx);
 			}
 		}
-
-//		if (words.size() > 0) {
-//			LOGGER.info("{} words analyzed for reading", words.size());
-//		} else {
-//			LOGGER.info("*** document is empty ***");
-//		}
 	}
 
 	/**
@@ -89,8 +87,6 @@ public class ReadingTextManager {
 		if (word.isWord()) {
 			words.add(word);
 		}
-
-//		LOGGER.debug("word: /{}/{}/", word.getOriginalWord(), word.getTransformedWord());
 		return word;
 	}
 
@@ -213,7 +209,6 @@ public class ReadingTextManager {
 			numPauses = getNumberOfPauses();
 			caret = currentWord.getIndexOfText();
 			currentWord.getOriginalWord().length();
-//			return currentWord.getTransformedWord();
 			return currentWord.getOriginalWord();
 		}
 
@@ -242,7 +237,6 @@ public class ReadingTextManager {
 				}
 			}
 		}
-		LOGGER.debug("{} words '{}' found", sr.getNumberMatchedWords(), searchText);
 		return sr;
 	}
 
@@ -266,7 +260,6 @@ public class ReadingTextManager {
 		for (int idx = 0; idx < words.size(); idx++) {
 			if (caretPosition <= words.get(idx).getIndexOfText()) {
 				int prevIdx = idx > 0 ? idx - 1 : 0;
-//				LOGGER.debug("found *** {}", words.get(prevIdx).getTransformedWord());
 				return words.get(prevIdx).clone();
 			}
 		}

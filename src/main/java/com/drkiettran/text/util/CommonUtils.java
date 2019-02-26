@@ -14,11 +14,12 @@ public class CommonUtils {
 	private static final String XPATH_SEARCH_BUTTON = "//input[@type='submit' and @value='Search']";
 	private static final String XPATH_BASIC_DEFINITION = "//div[@class='pseg']";
 	private static final String XPATH_SINGLE_BASIC_DEFINITION = "//div[@class='ds-single']";
+	private static final String XPATH_NOT_FOUND_MAIN_TEXT = "//div[@id='MainTxt']";
 
 	public static String getDefinitionForWord(String word) {
 		WebDriver driver = new HtmlUnitDriver();
 		driver.get(THE_FREE_DICTIONARY_WEBSITE);
-		driver.findElement(By.xpath(XPATH_SEARCH_TEXT)).sendKeys(getLowerSingular(word));
+		driver.findElement(By.xpath(XPATH_SEARCH_TEXT)).sendKeys(word);
 		driver.findElement(By.xpath(XPATH_SEARCH_BUTTON)).click();
 		List<WebElement> defElmts = driver.findElements(By.xpath(XPATH_BASIC_DEFINITION));
 		String def = "*** no definition ***";
@@ -28,6 +29,12 @@ public class CommonUtils {
 			if (!defElmts.isEmpty()) {
 				def = "<a href=\"" + driver.getCurrentUrl() + "\">" + driver.getCurrentUrl() + "</a><br>";
 				def += defElmts.get(0).getText();
+			} else {
+				defElmts = driver.findElements(By.xpath(XPATH_NOT_FOUND_MAIN_TEXT));
+				if (!defElmts.isEmpty()) {
+					def = "<a href=\"" + driver.getCurrentUrl() + "\">" + driver.getCurrentUrl() + "</a><br>";
+					def += defElmts.get(0).getText();
+				}
 			}
 		} else {
 			def = "<a href=\"" + driver.getCurrentUrl() + "\">" + driver.getCurrentUrl() + "</a><br>";
@@ -48,4 +55,5 @@ public class CommonUtils {
 		}
 		return word.toLowerCase();
 	}
+
 }

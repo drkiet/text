@@ -1,5 +1,6 @@
 package com.drkiettran.text.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,8 @@ import com.drkiettran.scriptureinaction.model.Link;
 import com.drkiettran.scriptureinaction.model.VersePointer;
 import com.drkiettran.scriptureinaction.repository.BibleRepositoryViaFile;
 
-public class Document {
+public class Document implements Serializable {
+	private static final long serialVersionUID = 4362279138333689171L;
 	private static final String EMPTY_RESULT = "<html><font size=\"%d\" face=\"%s\">*** EMPTY ***</font></html>";
 	private List<Page> pages;
 	private Page currentPage;

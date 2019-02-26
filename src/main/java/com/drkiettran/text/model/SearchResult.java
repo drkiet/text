@@ -2,6 +2,7 @@ package com.drkiettran.text.model;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 
 public class SearchResult {
@@ -11,6 +12,10 @@ public class SearchResult {
 		matchedWords = new ArrayList<Word>();
 	}
 
+	public Iterator<Word> getMatchedWordSet() {
+		return matchedWords.iterator();
+	}
+	
 	public void addFoundWord(Word word) {
 		matchedWords.add(word);
 	}

@@ -21,9 +21,14 @@ import com.drkiettran.text.model.Document;
 public class TextApp {
 	private static final Logger LOGGER = LoggerFactory.getLogger(TextApp.class);
 	private String translation = null;
+	private String newPageIndicator = "~~~";
 
 	public TextApp(String translation) {
 		this.translation = translation;
+	}
+
+	public void setNewPageIndicator(String newPageIndicator) {
+		this.newPageIndicator = newPageIndicator;
 	}
 
 	public TextApp() {
@@ -55,7 +60,7 @@ public class TextApp {
 		} else if (fileName.endsWith(".epub")) {
 			return new DocumentLoaderEpub().getPages(fileName);
 		} else if (fileName.endsWith(".txt")) {
-			return new DocumentLoaderText().getPages(fileName);
+			return new DocumentLoaderText(newPageIndicator).getPages(fileName);
 		} else if (translation != null) {
 			DocumentLoaderBible doc = new DocumentLoaderBible(translation);
 			return doc.getPages(fileName);

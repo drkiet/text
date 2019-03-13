@@ -20,6 +20,7 @@ public class DocumentLoaderPdf implements DocumentLoader {
 	private static final Logger LOGGER = LoggerFactory.getLogger(DocumentLoaderPdf.class);
 
 	public Document getPages(String fileName) {
+		LOGGER.info("Getting pages from file ...");
 		try (InputStream is = new FileInputStream(fileName)) {
 			Document doc = getPages(is);
 			is.close();
@@ -34,13 +35,14 @@ public class DocumentLoaderPdf implements DocumentLoader {
 
 	@Override
 	public Document getPages(InputStream is) {
+		LOGGER.info("Getting pages on inputstream ...");
 		try (PDDocument document = PDDocument.load(is)) {
-			if (!document.isEncrypted()) {
+//			if (!document.isEncrypted()) {
 				List<Page> pages = getPages(document);
 				document.close();
 				return new Document(pages);
-			}
-			document.close();
+//			}
+//			document.close();
 		} catch (InvalidPasswordException e) {
 			LOGGER.error("Invalid password: {}", e);
 		} catch (IOException e) {
@@ -51,6 +53,7 @@ public class DocumentLoaderPdf implements DocumentLoader {
 	}
 
 	private List<Page> getPages(PDDocument document) throws IOException {
+		LOGGER.info("Getting pages on PDDocument ...");
 		List<Page> pages = new ArrayList<Page>();
 
 		for (int idx = 0; idx < document.getNumberOfPages(); idx++) {
@@ -63,6 +66,7 @@ public class DocumentLoaderPdf implements DocumentLoader {
 	}
 
 	private String getPage(PDDocument document, int pageNo) throws IOException {
+		LOGGER.info("Getting page on PDDocument ...");
 		PDFTextStripper reader = new PDFTextStripper();
 		reader.setStartPage(pageNo);
 		reader.setEndPage(pageNo);

@@ -19,6 +19,11 @@ import com.drkiettran.text.model.Page;
 public class DocumentLoaderText implements DocumentLoader {
 	private static final Logger LOGGER = LoggerFactory.getLogger(DocumentLoaderText.class);
 	private String lastLine = null;
+	private String newPageIndicator = null;
+
+	public DocumentLoaderText(String newPageIndicator) {
+		this.newPageIndicator = newPageIndicator;
+	}
 
 	@Override
 	public Document getPages(String fileName) {
@@ -63,7 +68,9 @@ public class DocumentLoaderText implements DocumentLoader {
 	}
 
 	private String getPage(BufferedReader br) throws IOException {
+		LOGGER.info("Reading page ...");
 		StringBuilder page = new StringBuilder();
+
 		if (lastLine != null) {
 			page.append(lastLine);
 			lastLine = null;
@@ -74,7 +81,7 @@ public class DocumentLoaderText implements DocumentLoader {
 			if (line == null) {
 				break;
 			}
-			if (line.startsWith("*** chapter")) {
+			if (page.length() > 0 && newPageIndicator != null && line.startsWith(newPageIndicator)) {
 				lastLine = line;
 				return page.toString();
 			} else {

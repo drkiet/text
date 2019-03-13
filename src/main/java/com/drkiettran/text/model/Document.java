@@ -2,6 +2,7 @@ package com.drkiettran.text.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -22,6 +23,10 @@ public class Document implements Serializable {
 	private BibleBook bibleBook;
 	private BibleRepositoryViaFile repo = new BibleRepositoryViaFile();
 	private String bookFileName;
+
+	public Iterator<Page> getPages() {
+		return pages.iterator();
+	}
 
 	public void setBibleBook(BibleBook bibleBook) {
 		this.bibleBook = bibleBook;
